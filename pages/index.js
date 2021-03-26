@@ -4,7 +4,7 @@ import clsx from "clsx";
 import useSWR, { mutate } from "swr";
 import toast from "react-hot-toast";
 import redis from "../lib/redis";
-// import { ImHeadphones } from 'react-icons/im'
+import { ImHeadphones } from "react-icons/im";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -159,9 +159,10 @@ export default function Roadmap({ features, ip }) {
       </Head>
 
       <main className="flex flex-col items-center justify-center flex-1 px-4 sm:px-20 text-center">
-        <div className="flex justify-center items-center bg-black rounded-full w-16 sm:w-24 h-16 sm:h-24 my-8">
-          <img src="/upstash.svg" alt="Upstash Logo" className="h-8 sm:h-16" />
-          {/* <h3><ImHeadphones /></h3> */}
+        <div className="flex justify-center items-center w-16 sm:w-24 h-16 sm:h-24 my-8">
+          <h3>
+            <ImHeadphones color="tomato" size="12rem" />
+          </h3>
         </div>
         <div className="max-w-4xl p-8">
           <h1 className="text-lg sm:text-2xl font-bold mb-2">
@@ -179,8 +180,8 @@ export default function Roadmap({ features, ip }) {
             <form className="relative my-8" onSubmit={addFeature}>
               <input
                 ref={featureInputRef}
-                aria-label="Suggest a feature for our roadmap"
-                placeholder="I want..."
+                aria-label="Add a favorite podcast episode to the list"
+                placeholder="Favorite podcast name and episode number..."
                 type="text"
                 maxLength={150}
                 required
