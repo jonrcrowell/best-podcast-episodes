@@ -8,16 +8,18 @@ The example is a roadmap voting application where users can enter and vote for f
 - Users can enter their email addresses to be notified about the released items.
 - The API records the ip-addresses of the voters, so it does not allow multiple votes on the same item from the same IP address.
 
-## Demo
+## To Do
 
-- [https://roadmap-redis.vercel.app/](https://roadmap-redis.vercel.app/)
-
-## Deploy Your Own
-
-This examples uses [Upstash](https://upstash.com) (Serverless Redis Database) as its data storage. During deployment,
-you will be asked to connect with Upstash. The integration will help you create a free Redis database and link it to your Vercel project automatically.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-redis&project-name=redis-roadmap&repository-name=redis-roadmap&demo-title=Redis%20Roadmap&demo-description=Create%20and%20upvote%20features%20for%20your%20product.&demo-url=https%3A%2F%2Froadmap-redis.vercel.app%2F&integration-ids=oac_V3R1GIpkoJorr6fqyiwdhl17)
+[x] Repurpose for podcasts episodes
+[x] Replace logo
+[ ] Create better components for episodes
+    - include link to episode
+    - description
+    - genre?
+[ ] Consider removing e-mail, unless I decide to use it for something
+[ ] Turn adding new episode into a form
+[ ] Add tab for Podcasts
+[ ] Add filters
 
 ## How to use
 
