@@ -5,6 +5,7 @@ import useSWR, { mutate } from "swr";
 import toast from "react-hot-toast";
 import redis from "../lib/redis";
 import { ImHeadphones } from "react-icons/im";
+import Entry from "../components/Entry";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -60,29 +61,15 @@ function Item({ isFirst, isLast, isReleased, hasVoted, feature }) {
   };
 
   return (
-    <div
-      className={clsx(
-        "p-6 mx-8 flex items-center border-t border-l border-r",
-        isFirst && "rounded-t-md",
-        isLast && "border-b rounded-b-md"
-      )}
-    >
-      <button
-        className={clsx(
-          "ring-1 ring-gray-200 rounded-full w-8 min-w-[2rem] h-8 mr-4 focus:outline-none focus:ring focus:ring-blue-300",
-          (isReleased || hasVoted) &&
-            "bg-green-100 cursor-not-allowed ring-green-300"
-        )}
-        disabled={isReleased || hasVoted}
-        onClick={upvote}
-      >
-        {isReleased ? "✅" : "👍"}
-      </button>
-      <h3 className="text font-semibold w-full text-left">{feature.title}</h3>
-      <div className="bg-gray-200 text-gray-700 text-sm rounded-xl px-2 ml-2">
-        {feature.score}
-      </div>
-    </div>
+    <Entry
+      isFirst={isFirst}
+      isLast={isLast}
+      isReleased={isReleased}
+      hasVoted={hasVoted}
+      upvote={upvote}
+      title={feature.title}
+      score={feature.score}
+    ></Entry>
   );
 }
 
