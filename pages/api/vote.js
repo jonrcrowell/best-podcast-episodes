@@ -11,14 +11,14 @@ export default async function upvote(req, res) {
       error: "You are limited to one vote per episode.",
     });
   } else {
-    const entry = JSON.parse((await redis.hget("features", id)) || "null");
+    const entry = JSON.parse((await redis.hget("episode", id)) || "null");
     const updated = {
       ...entry,
       score: entry.score + 1,
       ip,
     };
 
-    await redis.hset("features", id, JSON.stringify(updated));
+    await redis.hset("episode", id, JSON.stringify(updated));
     return res.status(201).json(updated);
   }
 }

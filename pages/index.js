@@ -37,14 +37,14 @@ function LoadingSpinner({ invert }) {
   );
 }
 
-function Item({ isFirst, isLast, isReleased, hasVoted, feature }) {
+function Item({ isFirst, isLast, isReleased, hasVoted, entry }) {
   const upvote = async (e) => {
     e.preventDefault();
 
     const res = await fetch("/api/vote", {
       body: JSON.stringify({
-        id: feature.id,
-        title: feature.title,
+        id: entry.id,
+        title: entry.title,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -67,20 +67,21 @@ function Item({ isFirst, isLast, isReleased, hasVoted, feature }) {
       isReleased={isReleased}
       hasVoted={hasVoted}
       upvote={upvote}
-      title={feature.title}
-      score={feature.score}
+      title={entry.title}
+      description={entry.description}
+      score={entry.score}
     ></Entry>
   );
 }
 
-export default function Roadmap({ features, ip }) {
+export default function Roadmap({ episodes, ip }) {
   const [isCreateLoading, setCreateLoading] = useState(false);
   const [isEmailLoading, setEmailLoading] = useState(false);
   const featureInputRef = useRef(null);
   const subscribeInputRef = useRef(null);
 
   const { data, error } = useSWR("/api/features", fetcher, {
-    initialData: { features },
+    initialData: { episodes },
   });
 
   if (error) {
@@ -96,7 +97,8 @@ export default function Roadmap({ features, ip }) {
         type: "episode", // podcast or episode, hard-coded for now
         title: featureInputRef.current.value,
         link: "link to this",
-        description: "A brief but captivating description",
+        description:
+          "Hard-coded description until we expose this in the creation form.",
         rating: 5,
         genre: "genre",
       }),
@@ -188,14 +190,14 @@ export default function Roadmap({ features, ip }) {
             </form>
           </div>
           <div className="w-full">
-            {data.features.map((feature, index) => (
+            {data.episodes.map((episode, index) => (
               <Item
                 key={index}
                 isFirst={index === 0}
-                isLast={index === data.features.length - 1}
+                isLast={index === data.episodes.length - 1}
                 isReleased={false}
-                hasVoted={feature.ip === ip}
-                feature={feature}
+                hasVoted={episode.ip === ip}
+                entry={episode}
               />
             ))}
           </div>
@@ -233,7 +235,7 @@ export default function Roadmap({ features, ip }) {
 export async function getServerSideProps({ req }) {
   const ip =
     req.headers["x-forwarded-for"] || req.headers["Remote_Addr"] || "NA";
-  const features = (await redis.hvals("features"))
+  const episodes = (await redis.hvals("episode"))
     .map((entry) => JSON.parse(entry))
     .sort((a, b) => {
       // Primary sort is score
@@ -247,5 +249,5 @@ export async function getServerSideProps({ req }) {
       return 1;
     });
 
-  return { props: { features, ip } };
+  return { props: { episodes, ip } };
 }
