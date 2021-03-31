@@ -93,7 +93,7 @@ export default function Roadmap({ features, ip }) {
 
     const res = await fetch("/api/create", {
       body: JSON.stringify({
-        type: "podcast or episode",
+        type: "episode", // podcast or episode, hard-coded for now
         title: featureInputRef.current.value,
         link: "link to this",
         description: "A brief but captivating description",

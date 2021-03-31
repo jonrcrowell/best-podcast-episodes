@@ -7,14 +7,14 @@ export default async function upvote(req, res) {
 
   if (!title) {
     res.status(400).json({
-      error: "Feature can not be empty",
+      error: "I can't tell what you're wanting to add. Please try again.",
     });
   } else if (title.length < 150) {
     const id = uuidv4();
     const newEntry = {
       id,
       type,
-      title, // comes from req.body -- how do I add the other propeties?
+      title,
       link,
       description,
       rating,
@@ -24,7 +24,7 @@ export default async function upvote(req, res) {
       ip: "NA",
     };
 
-    await redis.hset("features", id, JSON.stringify(newEntry));
+    await redis.hset(type, id, JSON.stringify(newEntry));
     res.status(200).json({
       body: "success",
     });
