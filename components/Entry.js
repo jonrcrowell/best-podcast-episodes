@@ -7,6 +7,7 @@ const Entry = ({
   hasVoted,
   upvote,
   title,
+  podcast,
   description,
   score,
 }) => {
@@ -31,7 +32,9 @@ const Entry = ({
           {isReleased ? "✅" : "👍"}
         </button>
         <div className="text-left">
-          <h3 className="text font-semibold w-full">{title}</h3>
+          <h3 className="text font-semibold w-full text-gray-800">
+            <span className="text-gray-400">{podcast} |</span> {title}
+          </h3>
           <p>{description}</p>
         </div>
       </div>

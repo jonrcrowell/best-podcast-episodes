@@ -67,6 +67,7 @@ function Item({ isFirst, isLast, isReleased, hasVoted, entry }) {
       isReleased={isReleased}
       hasVoted={hasVoted}
       upvote={upvote}
+      podcast={entry.podcast}
       title={entry.title}
       description={entry.description}
       score={entry.score}
@@ -77,7 +78,9 @@ function Item({ isFirst, isLast, isReleased, hasVoted, entry }) {
 export default function Roadmap({ episodes, ip }) {
   const [isCreateLoading, setCreateLoading] = useState(false);
   const [isEmailLoading, setEmailLoading] = useState(false);
-  const featureInputRef = useRef(null);
+  const episodeInputRef = useRef(null);
+  const podcastInputRef = useRef(null);
+  const episodeDescriptionInputRef = useRef(null);
   const subscribeInputRef = useRef(null);
 
   const { data, error } = useSWR("/api/features", fetcher, {
@@ -94,11 +97,11 @@ export default function Roadmap({ episodes, ip }) {
 
     const res = await fetch("/api/create", {
       body: JSON.stringify({
-        type: "episode", // podcast or episode, hard-coded for now
-        title: featureInputRef.current.value,
+        type: "episode",
+        title: episodeInputRef.current.value,
+        podcast: podcastInputRef.current.value,
         link: "link to this",
-        description:
-          "Hard-coded description until we expose this in the creation form.",
+        description: episodeDescriptionInputRef.current.value,
         rating: 5,
         genre: "genre",
       }),
@@ -117,7 +120,9 @@ export default function Roadmap({ episodes, ip }) {
     }
 
     mutate("/api/features");
-    featureInputRef.current.value = "";
+    episodeInputRef.current.value = "";
+    podcastInputRef.current.value = "";
+    episodeDescriptionInputRef.current.value = "";
   };
 
   const subscribe = async (e) => {
@@ -173,9 +178,27 @@ export default function Roadmap({ episodes, ip }) {
           <div className="mx-8 w-full">
             <form className="relative my-8" onSubmit={addFeature}>
               <input
-                ref={featureInputRef}
-                aria-label="Add a favorite podcast episode to the list"
+                ref={episodeInputRef}
+                aria-label="Episode"
                 placeholder="Favorite podcast name and episode number..."
+                type="text"
+                maxLength={150}
+                required
+                className="pl-3 pr-28 py-3 mt-1 text-lg block w-full border border-gray-200 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              <input
+                ref={podcastInputRef}
+                aria-label="Podcast"
+                placeholder="What podcast was the episode on?"
+                type="text"
+                maxLength={150}
+                required
+                className="pl-3 pr-28 py-3 mt-1 text-lg block w-full border border-gray-200 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              <input
+                ref={episodeDescriptionInputRef}
+                aria-label="What made this so good?"
+                placeholder="Tell me why you recommend this, Twitter-style"
                 type="text"
                 maxLength={150}
                 required

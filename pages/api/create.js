@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import redis from "../../lib/redis";
 
 export default async function upvote(req, res) {
-  const { type, title, link, description, rating, genre } = req.body;
+  const { podcast, title, link, description, rating, genre } = req.body;
 
   if (!title) {
     res.status(400).json({
@@ -13,7 +13,7 @@ export default async function upvote(req, res) {
     const id = uuidv4();
     const newEntry = {
       id,
-      type,
+      podcast,
       title,
       link,
       description,
@@ -24,7 +24,7 @@ export default async function upvote(req, res) {
       ip: "NA",
     };
 
-    await redis.hset(type, id, JSON.stringify(newEntry));
+    await redis.hset("episode", id, JSON.stringify(newEntry));
     res.status(200).json({
       body: "success",
     });
