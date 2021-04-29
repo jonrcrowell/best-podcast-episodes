@@ -146,7 +146,9 @@ export default function Roadmap({ episodes, ip }) {
       return toast.error(error);
     }
 
-    toast.success("You are now subscribed to feature updates!");
+    toast.success(
+      "You are subscribed. We will periodically send out a list of new episodes. Periodically = once a month max."
+    );
     subscribeInputRef.current.value = "";
   };
 
