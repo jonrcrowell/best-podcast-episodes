@@ -160,7 +160,7 @@ export default function Roadmap({ episodes, ip }) {
       <main className="flex flex-col items-center justify-center flex-1 px-4 sm:px-20 text-center">
         <div className="flex justify-center items-center w-16 sm:w-24 h-16 sm:h-24 my-8">
           <h3>
-            <ImHeadphones color="tomato" size="12rem" />
+            <ImHeadphones color="tomato" size="8rem" />
           </h3>
         </div>
         <div className="max-w-4xl p-8">
@@ -176,7 +176,10 @@ export default function Roadmap({ episodes, ip }) {
 
         <div className="flex flex-wrap items-center justify-around max-w-4xl my-8 sm:w-full bg-white rounded-md shadow-xl h-full border border-gray-100">
           <div className="mx-8 w-full">
-            <form className="relative my-8" onSubmit={addFeature}>
+            <form
+              className="flex flex-col relative my-8 p-8 border border-gray-200 rounded-md"
+              onSubmit={addFeature}
+            >
               <input
                 ref={episodeInputRef}
                 aria-label="Episode"
@@ -205,7 +208,7 @@ export default function Roadmap({ episodes, ip }) {
                 className="pl-3 pr-28 py-3 mt-1 text-lg block w-full border border-gray-200 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-300"
               />
               <button
-                className="flex items-center justify-center absolute right-2 top-2 px-4 h-10 text-lg border bg-black text-white rounded-md w-24 focus:outline-none focus:ring focus:ring-blue-300 focus:bg-gray-800"
+                className="mt-2 self-end flex items-center justify-center px-4 h-10 text-lg border bg-black text-white rounded-md w-24 focus:outline-none focus:ring focus:ring-blue-300 focus:bg-gray-800"
                 type="submit"
               >
                 {isCreateLoading ? <LoadingSpinner invert /> : "Add"}
