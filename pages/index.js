@@ -91,7 +91,7 @@ export default function Roadmap({ episodes, ip }) {
     toast.error(error);
   }
 
-  const addFeature = async (e) => {
+  const addEpisode = async (e) => {
     e.preventDefault();
     setCreateLoading(true);
 
@@ -180,7 +180,7 @@ export default function Roadmap({ episodes, ip }) {
           <div className="mx-8 w-full">
             <form
               className="flex flex-col relative my-8 p-8 border border-gray-200 rounded-md"
-              onSubmit={addFeature}
+              onSubmit={addEpisode}
             >
               <input
                 ref={episodeInputRef}
